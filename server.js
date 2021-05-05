@@ -9,10 +9,14 @@ const articleRouter = require('./routes/articles')
 const methodOverride = require('method-override')
 const app = express()
 dotenv.config();
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/blog',
+var url = process.env.MONGODB_URI  || "mongodb://localhost:27017/blog"; 
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+    .then(() => console.log("Connection Successful"))
+    .catch(err => console.log(err))
+/*mongoose.connect(process.env.MONGODB_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/blog',
 {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true
-})
+})*/
 
 
 app.set('view engine', 'ejs')
